@@ -44,6 +44,18 @@ python experiments/code/train_baseline.py --mode test --checkpoint checkpoints/3
 ```
 
 
+# Checkpoints
+
+Pretrained checkpoints can be downloaded from the following links:
+
+- **KiTS23_to_KiTS19 checkpoints**: [Google Drive](https://drive.google.com/drive/folders/13jORV0-N8NxTqa4d7kO5l7eWG7L9HD1u?usp=drive_link)
+- **Kvasir-SEG_to_EndoScene checkpoints**: [Google Drive](https://drive.google.com/drive/folders/10gpDnrQbJG5S9TfX6fNZty4tQ61n8V26?usp=drive_link)
+
+Please download the corresponding checkpoint files and place them in the following directories:
+
+- `KiTS23_to_KiTS19/checkpoints/`
+- `Kvasir-SEG_to_EndoScene/checkpoints/`
+
 # Results
 ## Plug-and-play results on cross-domain datasets
 
