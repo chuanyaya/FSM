@@ -45,42 +45,39 @@ python experiments/code/train_baseline.py --mode test --checkpoint checkpoints/3
 
 
 # Results
-### LA dataset results
--   The training set consists of 8 labeled scans and 72 unlabeled scans and the testing set includes 20 scans.
+## Plug-and-play results on cross-domain datasets
 
+We evaluate the plug-and-play performance of integrating **FSM** into different SSDA frameworks on two cross-domain medical image segmentation benchmarks.
 
-| Method    | Reference      | Dice(%)↑ | Jaccard(%)↑ | 95HD(voxel)↓ | ASD(voxel)↓ |
-|:----------|:-------------:|---------:|-----------:|------------:|-----------:|
-| UA-MT     | (MICCAI'19)   | 85.81    | 75.41      | 18.25       | 5.04       |
-| SASSNet   | (MICCAI'20)   | 85.71    | 75.35      | 14.74       | 4.00       |
-| DTC       | (AAAI'21)     | 84.55    | 73.91      | 13.80       | 3.69       |
-| MC-Net    | (MICCAI'21)   | 86.87    | 78.49      | 11.17       | 2.18       |
-| URPC      | (MedIA'22)    | 83.37    | 71.99      | 17.91       | 4.41       |
-| SS-Net    | (MICCAI'22)   | 86.56    | 76.61      | 12.76       | 3.02       |
-| MC-Net+   | (MedIA'22)    | 87.68    | 78.27      | 10.35       | 1.85       |
-| DMD       | (MICCAI'23)   | 89.70    | 81.42      | 6.88        | 1.78       |
-| BCP       | (CVPR'23)     | 89.55    | 81.22      | 7.10        | **1.69**      |
-| UniMatch  | (CVPR'23)     | 89.09    | 80.47      | 12.50       | 3.59       |
-| CAML      | (MICCAI'23)   | 89.62    | 81.28      | 8.76        | 2.02       |
-| **Ours**  |                | **90.50** | **82.71**  | **5.97**    | 2.02  |
+### Kvasir-SEG → EndoScene (Polyp)
+- The target domain uses **10% labeled / 30% labeled** settings.
+- Evaluation metrics include **Dice** and **IoU**.
 
+| Method          | Reference | 10% Dice(%)↑ | 10% IoU(%)↑ | 30% Dice(%)↑ | 30% IoU(%)↑ |
+|:----------------|:---------:|-------------:|------------:|-------------:|------------:|
+| Baseline        |           | 78.76        | 64.97       | 84.10        | 72.56       |
+| DuCiSC          | [24]      | 68.86        | 52.50       | 81.89        | 69.34       |
+| DuCiSC + FSM    | [24]      | 80.61        | 67.52       | 87.20        | 77.30       |
+| CorrMatch       | [25]      | 81.10        | 68.21       | 87.14        | 77.21       |
+| CorrMatch + FSM | [25]      | 85.28        | 74.34       | 90.38        | 82.45       |
+| ABD             | [26]      | 81.39        | 68.63       | 85.06        | 74.01       |
+| ABD + FSM       | [26]      | 84.15        | 72.64       | 86.33        | 75.95       |
+| **Ours**        |           | **87.39**    | **77.60**   | **91.40**    | **84.16**   |
 
--   The training set consists of 16 labeled scans and 64 unlabeled scans and the testing set includes 20 scans.
+### KiTS23 → KiTS19 (Kidney Tumor)
+- The target domain uses **10% labeled / 20% labeled** settings.
+- Evaluation metrics include **mDice** and **mIoU**.
 
-| Method      | Reference      | Dice(%)↑   | Jaccard(%)↑ | 95HD(voxel)↓ | ASD(voxel)↓ |
-|:------------|:-------------:|-----------:|-----------:|-------------:|-----------:|
-| UA-MT       | (MICCAI'19)   | 88.18      | 79.09      | 9.66         | 2.62       |
-| SASSNet     | (MICCAI'20)   | 88.11      | 79.08      | 12.31        | 3.27       |
-| DTC         | (AAAI'21)     | 87.79      | 78.52      | 10.29        | 2.50       |
-| MC-Net      | (MICCAI'21)   | 90.43      | 82.69      | 6.52         | 1.66       |
-| URPC        | (MedIA'22)    | 87.68      | 78.36      | 14.39        | 3.52       |
-| SS-Net      | (MICCAI'22)   | 88.19      | 79.21      | 8.12         | 2.20       |
-| MC-Net+     | (MedIA'22)    | 90.60      | 82.93      | 6.27         | **1.58**       |
-| DMD         | (MICCAI'23)   | 90.46      | 82.66      | 6.39         | 1.62       |
-| BCP         | (CVPR'23)     | 90.18      | 82.36      | 6.64         | 1.61       |
-| UniMatch    | (CVPR'23)     | 90.77      | 83.18      | 7.21         | 2.05       |
-| CAML        | (MICCAI'23)   | 90.78      | 83.19      | 6.11         | 1.68       |
-| **Ours**    |                | **91.41**  | **84.25**  | **5.19**     | 1.92   |
+| Method          | Reference | 10% mDice(%)↑ | 10% mIoU(%)↑ | 20% mDice(%)↑ | 20% mIoU(%)↑ |
+|:----------------|:---------:|--------------:|-------------:|--------------:|-------------:|
+| Baseline        |           | 82.61         | 70.74        | 87.92         | 78.68        |
+| DuCiSC          | [24]      | 82.26         | 70.19        | 85.75         | 75.31        |
+| DuCiSC + FSM    | [24]      | 86.35         | 76.21        | 88.63         | 79.80        |
+| CorrMatch       | [25]      | 78.16         | 64.60        | 84.46         | 73.39        |
+| CorrMatch + FSM | [25]      | 81.07         | 68.57        | 86.00         | 75.78        |
+| ABD             | [26]      | 80.29         | 67.61        | 87.00         | 77.24        |
+| ABD + FSM       | [26]      | 83.94         | 72.74        | 88.41         | 79.51        |
+| **Ours**        |           | **86.53**     | **76.61**    | **89.46**     | **81.16**    |
 
 ### ACDC dataset results
 -   The training set consists of 3 labeled scans and 67 unlabeled scans and the testing set includes 20 scans.
