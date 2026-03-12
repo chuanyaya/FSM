@@ -79,33 +79,58 @@ We evaluate the plug-and-play performance of integrating **FSM** into different 
 | ABD + FSM       | [26]      | 83.94         | 72.74        | 88.41         | 79.51        |
 | **Ours**        |           | **86.53**     | **76.61**    | **89.46**     | **81.16**    |
 
-### ACDC dataset results
--   The training set consists of 3 labeled scans and 67 unlabeled scans and the testing set includes 20 scans.
+## Comparison with state-of-the-art SSDA methods
 
-| Method      | Reference      | Dice(%)↑   | Jaccard(%)↑ | 95HD(voxel)↓ | ASD(voxel)↓ |
-|:------------|:-------------:|-----------:|-----------:|-------------:|-----------:|
-| UA-MT       | (MICCAI'19)   | 46.04      | 35.97      | 20.08        | 7.75       |
-| SASSNet     | (MICCAI'20)   | 57.77      | 46.14      | 20.05        | 6.06       |
-| DTC         | (AAAI'21)     | 56.90      | 45.67      | 23.36        | 7.39       |
-| MC-Net      | (MICCAI'21)   | 62.85      | 52.29      | 7.62         | 2.33       |
-| URPC        | (MedIA'22)    | 55.87      | 44.64      | 13.60        | 3.74       |
-| SS-Net      | (MICCAI'22)   | 65.82      | 55.38      | 6.67         | 2.28       |
-| DMD         | (MICCAI'23)   | 80.60      | 69.08      | 5.96         | 1.90       |
-| ABD    | (CVPR'24)     | 88.96      | 80.70      | 1.57       | 0.52       |
-| **Ours** | |**89.68** |**82.31** |**1.33**| **0.37** |
--   The training set consists of 7 labeled scans and 63 unlabeled scans and the testing set includes 20 scans.
+We compare our method with representative SSDA approaches on two cross-domain medical image segmentation tasks.
 
-| Method    | Reference    | Dice(%)↑ | Jaccard(%)↑ | 95HD(voxel)↓ | ASD(voxel)↓ |
-|:----------|:-----------:|---------:|-----------:|-------------:|-----------:|
-| UA-MT     | (MICCAI'19) | 81.65    | 70.64      | 6.88         | 2.02       |
-| SASSNet   | (MICCAI'20) | 84.50    | 74.34      | 5.42         | 1.86       |
-| DTC       | (AAAI'21)   | 84.29    | 73.92      | 12.81        | 4.01       |
-| MC-Net    | (MICCAI'21) | 86.44    | 77.04      | 5.50         | 1.84       |
-| URPC      | (MedIA'22)  | 83.10    | 72.41      | 4.84         | 1.53       |
-| SS-Net    | (MICCAI'22) | 86.78    | 77.67      | 6.07         | 1.40       |
-| DMD       | (MICCAI'23) | 87.52    | 78.62      | 4.81         | 1.60       |
-| ABD    | (CVPR'24)     | 89.81      | 81.95      | 1.46       | 0.49       |
-| **Ours**  |             | **90.19**| **83.00**  | **1.35**     | **0.37**       |
+### Kvasir-SEG → EndoScene (Polyp)
+- The target domain uses **10% labeled / 30% labeled** settings.
+- Evaluation metrics include **Dice** and **IoU**.
+
+| Method   | Reference | 10% Dice(%)↑ | 10% IoU(%)↑ | 30% Dice(%)↑ | 30% IoU(%)↑ |
+|:---------|:---------:|-------------:|------------:|-------------:|------------:|
+| ACT      | [4]       | 75.52        | 67.20       | 79.88        | 71.89       |
+| SLA      | [27]      | 75.23        | 66.47       | 82.90        | 75.33       |
+| GFDA     | [14]      | 85.03        | 73.95       | 87.95        | 78.49       |
+| **Ours** |           | **87.39**    | **77.60**   | **91.40**    | **84.16**   |
+
+### KiTS23 → KiTS19 (Kidney Tumor)
+- The target domain uses **10% labeled / 20% labeled** settings.
+- Evaluation metrics include **mDice** and **mIoU**.
+
+| Method   | Reference | 10% mDice(%)↑ | 10% mIoU(%)↑ | 20% mDice(%)↑ | 20% mIoU(%)↑ |
+|:---------|:---------:|--------------:|-------------:|--------------:|-------------:|
+| ACT      | [4]       | 82.09         | 75.38        | 86.41         | 81.09        |
+| GFDA     | [14]      | 85.88         | 75.53        | 89.08         | 80.50        |
+| SLA      | [27]      | 83.03         | 71.48        | 85.44         | 74.99        |
+| **Ours** |           | **86.53**     | **76.61**    | **89.46**     | **81.16**    |
+
+
+## Ablation study of FSM and FP components
+
+We conduct an ablation study on **FSM** and **FP (Frequency Perturbation)** over two cross-domain medical image segmentation tasks.
+
+### Kvasir-SEG → EndoScene (Polyp)
+- The target domain uses **10% labeled / 30% labeled** settings.
+- Evaluation metrics include **Dice** and **IoU**.
+
+| Configuration    | 10% Dice(%)↑     | 10% IoU(%)↑      | 30% Dice(%)↑     | 30% IoU(%)↑      |
+|:-----------------|-----------------:|-----------------:|-----------------:|------------------:|
+| Baseline         | 78.76            | 64.97            | 84.10            | 72.56             |
+| Baseline + FP    | 83.99 (+5.23)    | 72.40 (+7.43)    | 88.81 (+4.71)    | 79.87 (+7.31)     |
+| Baseline + FSM   | 83.58 (+4.82)    | 71.80 (+6.83)    | 88.68 (+4.58)    | 79.66 (+7.10)     |
+| **Ours (FSM + FP)** | **87.39 (+8.63)** | **77.60 (+12.63)** | **91.40 (+7.30)** | **84.16 (+11.60)** |
+
+### KiTS23 → KiTS19 (Kidney Tumor)
+- The target domain uses **10% labeled / 20% labeled** settings.
+- Evaluation metrics include **mDice** and **mIoU**.
+
+| Configuration    | 10% mDice(%)↑    | 10% mIoU(%)↑     | 20% mDice(%)↑    | 20% mIoU(%)↑     |
+|:-----------------|-----------------:|-----------------:|-----------------:|-----------------:|
+| Baseline         | 82.61            | 70.74            | 86.85            | 77.03            |
+| Baseline + FP    | 85.35 (+2.74)    | 74.68 (+3.94)    | 87.47 (+0.62)    | 78.00 (+0.97)    |
+| Baseline + FSM   | 86.47 (+3.86)    | 76.50 (+5.76)    | 88.54 (+1.69)    | 79.69 (+2.66)    |
+| **Ours (FSM + FP)** | **86.53 (+3.92)** | **76.61 (+5.87)** | **89.46 (+2.61)** | **81.16 (+4.13)** |
 
 
 
