@@ -7,17 +7,13 @@
     ```
     conda create -n FSM python=3.11
     ```
-2.  Clone the repo:
+
+2.  Activate the environment:
     ```
-    git clone https://github.com/chuanyaya/CompNet.git
+    conda activate FSM
     ```
-3.  Activate the environment:
+3.  Install the requirements:
     ```
-    conda activate CompNet
-    ```
-4.  Install the requirements:
-    ```
-    cd CompNet
     pip install -r requirements.txt
     ```
 
@@ -25,20 +21,26 @@
 
 
 
-### LA dataset
+### KiTS23_to_KiTS19
 
 One click to run:
 ```
-cd LA/code
-bash train.sh
+cd /KiTS23_to_KiTS19
+python train_fsm.py --test --gpu 0 --labeled_ratio 10p --checkpoint checkpoints/fsm/best_model_10p.pth
+python train_fsm.py --test --gpu 0 --labeled_ratio 20p --checkpoint checkpoints/fsm/best_model_20p.pth
+python train_baseline.py --test --gpu 0 --labeled_ratio 10p --checkpoint checkpoints/baseline/best_model_10p.pth
+python train_baseline.py --test --gpu 0 --labeled_ratio 20p --checkpoint checkpoints/baseline/best_model_20p.pth
 ```
-### ACDC dataset
+### Kvasir-SEG_to_EndoScene
 
 One click to run:
 ```
-cd ACDC
+cd Kvasir-SEG_to_EndoScene
 bash scripts/train.sh gpu_num port
-# like `bash scripts/train.sh 4 12333` for 4 GPUs and port 12333
+python experiments/code/train_FSM.py --mode test --checkpoint checkpoints/10p.pth --gpu 0
+python experiments/code/train_FSM.py --mode test --checkpoint checkpoints/30p.pth --gpu 0
+python experiments/code/train_baseline.py --mode test --checkpoint checkpoints/10p_base.pth --gpu 0
+python experiments/code/train_baseline.py --mode test --checkpoint checkpoints/30p_base.pth --gpu 0
 ```
 
 
