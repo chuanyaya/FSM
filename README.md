@@ -134,6 +134,3 @@ We conduct an ablation study on **FSM** and **FP (Frequency Perturbation)** over
 
 
 
-# Acknowledgement
--   This code is adapted from  [UA-MT](https://github.com/yulequan/UA-MT),  [DTC](https://github.com/HiLab-git/DTC.git)  and  [UniMatch](https://github.com/LiheYoung/UniMatch/tree/main/more-scenarios/medical)  .
--   We thank Lequan Yu, Xiangde Luo and Lihe Yang for their elegant and efficient code base.
