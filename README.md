@@ -5,7 +5,7 @@
 
 1.  Create conda environment:
     ```
-    conda create -n CompNet python=3.11
+    conda create -n FSM python=3.11
     ```
 2.  Clone the repo:
     ```
